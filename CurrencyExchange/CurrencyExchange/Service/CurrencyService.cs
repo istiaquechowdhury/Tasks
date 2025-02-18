@@ -29,12 +29,12 @@ namespace CurrencyExchange.Service
             var response = await _httpClient.GetAsync($"{ApiUrl}/latest?amount={amount}&from={fromCurrency}&to={toCurrency}");
 
             if (!response.IsSuccessStatusCode)
-                return null; // API request failed
+                return null; 
 
             var json = await response.Content.ReadAsStringAsync();
 
             if (string.IsNullOrWhiteSpace(json))
-                return null; // Empty response
+                return null; 
 
             try
             {
@@ -44,13 +44,13 @@ namespace CurrencyExchange.Service
                 });
 
                 if (result?.Rates == null || !result.Rates.ContainsKey(toCurrency))
-                    return null; // Ensure Rates dictionary exists and contains the target currency
+                    return null; 
 
                 return result.Rates[toCurrency];
             }
             catch (JsonException)
             {
-                return null; // JSON parsing failed
+                return null; 
             }
         }
 

@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Currency Converter";
+}
+
+<h2>Currency Converter</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<form asp-action="Convert" method="post">
+    <div class="form-group">
+        <label for="fromCurrency">From Currency:</label>
+        <select name="fromCurrency" id="fromCurrency" class="form-control">
+            @foreach (var currency in ViewBag.Currencies)
+            {
+                <option value="@currency">@currency</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="toCurrency">To Currency:</label>
+        <select name="toCurrency" id="toCurrency" class="form-control">
+            @foreach (var currency in ViewBag.Currencies)
+            {
+                <option value="@currency">@currency</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="amount">Amount:</label>
+        <input type="number" name="amount" id="amount" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Convert</button>
+</form>
+
+@if (ViewBag.ConvertedAmount != null)
+{
+    <h3>Converted Amount: @ViewBag.ConvertedAmount</h3>
+}
